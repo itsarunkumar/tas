@@ -58,4 +58,10 @@
 			</div>
 		</div>
 	{/each}
+
+	{#if data.posts.length === 0}
+		<div class="w-full px-4 py-2 lg:w-1/2 shadow-xl round-lg bg-slate-100">
+			<h1 class="text-4xl my-3">No talks posted yet</h1>
+		</div>
+	{/if}
 </div>
