@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--shadow: #9733ee;
+	--scrollbarBG: rgb(2 6 23);
+	--thumbBG: #da22ff;
+}
+::-webkit-scrollbar {
+	width: 4px;
+	border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+	background: var(--scrollbarBG);
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: var(--thumbBG);
+	box-shadow: 0 -100vh 0 100vh var(--shadow), 0 0 15px 5px black;
+	border-radius: 10px;
+}

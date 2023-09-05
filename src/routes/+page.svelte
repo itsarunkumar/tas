@@ -1,56 +1,51 @@
 <script lang="ts">
-	import { getThings, addThing, removeThing } from '$lib/store';
-	import { flip } from 'svelte/animate';
-	import { fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
+	import gsap from 'gsap';
+	import type { PageData } from './$types';
 
-	$: query = '';
-	let things = getThings();
+	export let data: PageData;
 </script>
 
-<svelte:window on:keydown={(e) => (e.key === 'Enter' ? (query = '') : null)} />
-
-<div class="lg:w-10/12 h-full flex justify-center items-center flex-col mx-auto">
-	<div class="w-full flex justify-center items-center flex-col my-7">
-		<div class="flex flex-col sm:w-3/5">
-			<textarea
-				class="textarea w-full rounded-xl px-3 py-4 ease-in-out hover:rounded-md outline-none border-none placeholder:text-slate-100 placeholder:text-start bg-slate-800 text-slate-50"
-				rows="4"
-				on:keydown={(e) => (e.key === 'Enter' ? addThing(query) : null)}
-				bind:value={query}
-				placeholder="write what you want then press enter!!!"
-			/>
-
-			<button on:click={() => addThing(query)} class=" px-5 py-3 rounded bg-blue-900">
-				<p>Add {$things.length}</p>
-			</button>
-		</div>
+<div class="w-full flex justify-center items-center relative h-screen bg-slate-950 overflow-hidden">
+	<div
+		class="bg-violet-500 animate-moveAround delay-75 circle-g w-[400px] h-[400px] opacity-50 scale-150 rounded-full blur-[100px] absolute -top-14 -left-16"
+	/>
+	<div
+		class="bg-violet-500 delay-700 circle-g w-[200px] h-[200px] scale-150 rounded-full blur-[100px] absolute top-14 -right-16"
+	/>
+	<div
+		class="bg-violet-500 delay-700 circle-g w-[200px] h-[200px] scale-150 rounded-full blur-[100px] absolute top-14 -left-16"
+	/>
+	<div class="bg-slate-950 w-full h-screen backdrop-blur-3xl bg-transparent absolute" />
+	<div class="absolute px-10">
+		<h4 class="text-white text-8xl hover:underline hover:underline-offset-auto ease-in-out">
+			welcome to Talks
+		</h4>
+		<h2 class="text-white bg-transparent text-5xl lg:text-9xl">
+			<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#DA22FF] to-[#9733EE]"
+				>Talks</span
+			> is an place
+		</h2>
+		<p class="text-white text-7xl">
+			where you can share your thoughts without any account or identity
+		</p>
 	</div>
 
-	{#if $things.length > 0}
-		<div class="w-full flex justify-center items-center gap-5 flex-wrap">
-			<p
-				transition:fly
-				class="w-3/6 bg-blue-900 px-4 py-5 rounded-sm shadow-lg flex justify-around items-center"
-			>
-				{$things[0]}
-				<span on:click={() => removeThing($things[0])} class="btn cursor-pointer text-red-500"
-					>remove</span
-				>
-			</p>
-			{#if $things.length > 1}
-				<p
-					class="w-3/6 bg-blue-900 px-4 py-5 rounded-sm shadow-lg flex justify-around items-center"
-				>
-					{$things[1]}
-					<span on:click={() => removeThing($things[1])} class="btn cursor-pointer text-red-500"
-						>remove</span
-					>
-				</p>
-			{/if}
-		</div>
-	{/if}
+	<div class="absolute flex self-end mb-16 text-white">
+		<button class="px-5 py-3 rounded bg-violet-500 hover:bg-violet-600">
+			<a href="/t/talks">Let's talk</a>
+		</button>
+	</div>
 
-	<a href="/talks" class="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded shadow-sm my-4"
-		>Go to Talks</a
+	<nav
+		class="absolute px-10 flex self-start mt-4 w-full items-center justify-between text-white font-light"
 	>
+		<a href="/" class="text-2xl">talks</a>
+
+		<div class=" flex gap-7 text-lg">
+			<a href="/about">About</a>
+			<a href="/t/talks">Talks</a>
+			<a href="/t/addtalk">start a talk</a>
+		</div>
+	</nav>
 </div>
